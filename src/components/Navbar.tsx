@@ -4,6 +4,8 @@ import { Flex, Text, Spacer, Button } from '@chakra-ui/react'
 import { LoginActions } from "../store/slices/login-slice"
 import { useNavigate } from "react-router-dom"
 import { ToggleActions } from "../store/slices/toggle-slice"
+import { AddNoteActions } from '../store/slices/addNote-slice';
+import { EditActions } from '../store/slices/edit-slice';
 
 const Navbar: React.FC = () => {
     const navigate = useNavigate()
@@ -26,11 +28,27 @@ const Navbar: React.FC = () => {
         }
     }
     const logoutClick = () => {
+        dispatch(AddNoteActions.setAddNote(false))
+        dispatch(EditActions.setEdit({
+            isEdit: false,
+            content: '',
+            heading: '',
+            image: '',
+            noteId: ''
+        }))
         localStorage.clear()
         dispatch(ToggleActions.setToggle(false))
         navigate('/user')
     }
     const homeClick = () => {
+        dispatch(AddNoteActions.setAddNote(false))
+        dispatch(EditActions.setEdit({
+            isEdit: false,
+            content: '',
+            heading: '',
+            image: '',
+            noteId: ''
+        }))
         if (localStorage.getItem('authToken') === null) {
             navigate('/user')
         } else {

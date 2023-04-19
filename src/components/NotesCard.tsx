@@ -10,6 +10,7 @@ import AlertBar from "./AlertBar"
 import ModalItem from "./Modal"
 import { ModalOpenActions } from "../store/slices/modalClose-slice"
 import './Paginate.css'
+import { AddNoteActions } from "../store/slices/addNote-slice";
 
 const NotesCard: React.FC = () => {
     const [notesAll, setNotesAll] = useState<any>()
@@ -56,7 +57,7 @@ const NotesCard: React.FC = () => {
     const [postsPerPage] = useState<number>(9);
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = notesAll && notesAll.allNotes.slice(indexOfFirstPost, indexOfLastPost);
+    const currentPosts = notesAll !== undefined && notesAll.allNotes.slice(indexOfFirstPost, indexOfLastPost);
     interface selectedType {
         selected: number
     }
@@ -107,6 +108,7 @@ const NotesCard: React.FC = () => {
             image: '',
             noteId: ''
         }))
+        dispatch(AddNoteActions.setAddNote(true))
         if (localStorage.getItem('authToken') === null) {
             navigate('/user')
         } else {
@@ -122,6 +124,7 @@ const NotesCard: React.FC = () => {
             image: note.image,
             noteId: note._id
         }))
+        dispatch(AddNoteActions.setAddNote(false))
         if (localStorage.getItem('authToken') === null) {
             navigate('/user')
         } else {
@@ -270,13 +273,21 @@ const NotesCard: React.FC = () => {
         setModalContent(input)
         dispatch(ModalOpenActions.setModalOpen(true))
     }
-
+    if (alert) {
+        setTimeout(() => {
+            setAlert({
+                isAlert: false,
+                title: '',
+                description: ''
+            })
+        }, 10000)
+    }
     return (
         <>
             {mainSpinner && <Spinner position='fixed' top='120px' left='50%' zIndex='sticky' thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'
             />}
             {alert.isAlert && <AlertBar alertData={alert} />}
-            <Flex flexDirection='row' position='fixed' top={alert.isAlert ? '120px' : '80px'} ml='20px' zIndex='sticky'>
+            {notesAll !== undefined && <Flex flexDirection='row' position='fixed' top={alert.isAlert ? '120px' : '80px'} ml='20px' zIndex='sticky'>
                 {!enableCheckboxes && <>
                     <Tooltip label='Add note' bg='gray' fontSize='md'>
                         <AddIcon bg='green.500' color='white' mr='20px' fontSize='15px' p='7px' w='40px' borderRadius='10px' h='40px' onClick={addNote} _hover={{ cursor: 'pointer' }}></AddIcon>
@@ -295,7 +306,7 @@ const NotesCard: React.FC = () => {
                             <CloseIcon bg='gray' color='white' fontSize='15px' p='7px' w='40px' borderRadius='10px' h='40px' onClick={cancelCheckClick} _hover={{ cursor: 'pointer' }}></CloseIcon>
                         </Tooltip>
                     </>}
-            </Flex>
+            </Flex>}
 
             {modalOpen && <ModalItem modalContent={modalContent} />}
 
@@ -356,7 +367,7 @@ const NotesCard: React.FC = () => {
                 })}
             </Flex>}
             <Flex justify='center'>
-               {notesAll && <ReactPaginate
+                {notesAll && <ReactPaginate
                     onPageChange={paginate}
                     pageCount={Math.ceil(notesAll.allNotes.length / postsPerPage)}
                     previousLabel={'Prev'}
@@ -371,7 +382,7 @@ const NotesCard: React.FC = () => {
                     renderOnZeroPageCount={null}
                     marginPagesDisplayed={1}
                     pageRangeDisplayed={1}
-                />} 
+                />}
             </Flex>
         </>
     )

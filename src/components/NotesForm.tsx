@@ -1,12 +1,15 @@
 import React from "react"
-import { useSelector } from "react-redux"
-import { Input, Flex, Spinner, Text, Spacer, Button, Textarea,  Tooltip } from '@chakra-ui/react'
-import {  CloseIcon } from '@chakra-ui/icons'
+import { useSelector, useDispatch } from "react-redux"
+import { Input, Flex, Spinner, Text, Spacer, Button, Textarea, Tooltip } from '@chakra-ui/react'
+import { CloseIcon } from '@chakra-ui/icons'
 import { useNavigate } from "react-router-dom"
 import { useState, useRef } from "react";
 import AlertBar from "./AlertBar"
+import { EditActions } from "../store/slices/edit-slice"
+import { AddNoteActions } from "../store/slices/addNote-slice"
 
 const NotesForm: React.FC = () => {
+    const dispatch = useDispatch()
     interface StateType {
         isEdit: {
             isEdit: boolean,
@@ -36,12 +39,12 @@ const NotesForm: React.FC = () => {
     });
     const [headingError, setHeadingError] = useState<boolean>(false);
     const [contentError, setContentError] = useState<boolean>(false);
-const [imageUpload, setImageUpload] = useState<any>();
+    const [imageUpload, setImageUpload] = useState<any>();
     const [file, setFile] = useState<any>()
 
     const headingRef = useRef<HTMLInputElement>(null)
     const contentRef = useRef<HTMLTextAreaElement>(null)
-   
+
     const alertFunction = () => {
         setAlert({
             isAlert: true,
@@ -58,6 +61,14 @@ const [imageUpload, setImageUpload] = useState<any>();
 
     const navigate = useNavigate()
     const closeClick = () => {
+        dispatch(AddNoteActions.setAddNote(false))
+        dispatch(EditActions.setEdit({
+            isEdit: false,
+            content: '',
+            heading: '',
+            image: '',
+            noteId: ''
+        }))
         if (localStorage.getItem('authToken') === null) {
             navigate('/user')
         } else {
@@ -112,6 +123,14 @@ const [imageUpload, setImageUpload] = useState<any>();
                     const data = await response.json()
                     setButtonSpinner(false)
                     if (data.status === 'ok') {
+                        dispatch(AddNoteActions.setAddNote(false))
+                        dispatch(EditActions.setEdit({
+                            isEdit: false,
+                            content: '',
+                            heading: '',
+                            image: '',
+                            noteId: ''
+                        }))
                         navigate('/notes')
                     } else {
                         alertFunction()
@@ -135,6 +154,14 @@ const [imageUpload, setImageUpload] = useState<any>();
                     const data = await response.json()
                     setButtonSpinner(false)
                     if (data.status === 'ok') {
+                        dispatch(AddNoteActions.setAddNote(false))
+                        dispatch(EditActions.setEdit({
+                            isEdit: false,
+                            content: '',
+                            heading: '',
+                            image: '',
+                            noteId: ''
+                        }))
                         navigate('/notes')
                     } else {
                         alertFunction()
@@ -175,9 +202,9 @@ const [imageUpload, setImageUpload] = useState<any>();
                     {contentError && <Text color='red'>Enter content</Text>}
                     <Flex flexDirection='row' mt='20px' align='center' justify='flex-start'>
                         <Tooltip label='Add image' fontSize='md'>
-                            <input  type="file" onChange={imageChangeHandler}/>
+                            <input type="file" onChange={imageChangeHandler} />
                         </Tooltip>
-                        <img style={{ width: '100px' }} src={isEdit ? imageSRC : file} alt="notes" />
+                        <img style={{ width: '100px' }} src={isEdit ? imageSRC : file} alt="" />
 
                     </Flex>
 
