@@ -100,7 +100,7 @@ const LoginSignup: React.FC = () => {
             if (!isLogin) {
                 setButtonSpinner(true)
                 try {
-                    const response = await fetch('http://localhost:3000/user/signup', {
+                    const response = await fetch('https://notesapp-backend-tqnj.onrender.com/user/signup', {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
@@ -134,7 +134,7 @@ const LoginSignup: React.FC = () => {
             } else {
                 try {
                     setButtonSpinner(true)
-                    const response = await fetch('http://localhost:3000/user/login', {
+                    const response = await fetch('https://notesapp-backend-tqnj.onrender.com/user/login', {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',

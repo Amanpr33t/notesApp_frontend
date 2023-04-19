@@ -68,7 +68,7 @@ const NotesCard: React.FC = () => {
     const fetchAllNotes = useCallback(async () => {
         setMainSpinner(true)
         setEnableCards(false)
-        const response = await fetch('http://localhost:3000/notes/getAllNotes', {
+        const response = await fetch('https://notesapp-backend-tqnj.onrender.com/notes/getAllNotes', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -145,7 +145,7 @@ const NotesCard: React.FC = () => {
     const deleteNote = async (note: noteType) => {
         try {
             setMainSpinner(true)
-            const response = await fetch(`http://localhost:3000/notes/deleteNote/${note._id}`, {
+            const response = await fetch(`https://notesapp-backend-tqnj.onrender.com/notes/deleteNote/${note._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
@@ -200,7 +200,7 @@ const NotesCard: React.FC = () => {
     const deleteSelectedNotes = async () => {
         try {
             setDeleteIconSpinner(true)
-            const response = await fetch(`http://localhost:3000/notes/deleteSelectedNotes/${checkedNotes}`, {
+            const response = await fetch(`https://notesapp-backend-tqnj.onrender.com/notes/deleteSelectedNotes/${checkedNotes}`, {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',

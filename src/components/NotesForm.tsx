@@ -111,7 +111,7 @@ const NotesForm: React.FC = () => {
             }
             if (isEdit) {
                 try {
-                    const response = await fetch(`http://localhost:3000/notes/editNote/${noteId}`, {
+                    const response = await fetch(`https://notesapp-backend-tqnj.onrender.com/notes/editNote/${noteId}`, {
                         method: 'PATCH',
                         headers: {
                             'Accept': 'application/json',
@@ -142,7 +142,7 @@ const NotesForm: React.FC = () => {
 
             } else {
                 try {
-                    const response = await fetch('http://localhost:3000/notes/addNote', {
+                    const response = await fetch('https://notesapp-backend-tqnj.onrender.com/notes/addNote', {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
