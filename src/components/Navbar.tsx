@@ -57,12 +57,12 @@ const Navbar: React.FC = () => {
     }
     return (
         <>
-            <Flex h='60px' bg='gray' flexDirection='row' align='center' position='fixed' top='0px' width='100%' zIndex='sticky'>
-                <Text pl='20px' fontSize='30px' fontWeight='600' onClick={homeClick} _hover={{ cursor: 'pointer' }}>NotesWeb</Text>
+            <Flex h='60px' bg='black' flexDirection='row' align='center' position='fixed' top='0px' width='100%' zIndex='sticky'>
+                <Text pl='20px' fontSize='30px' fontWeight='600' onClick={homeClick} _hover={{ cursor: 'pointer' }} color='white'>NotesWeb</Text>
                 <Spacer></Spacer>
                 {localStorage.getItem('authToken') === null ?
-                    <Button h='100%' bg='gray' fontSize='20px' onClick={loginSignUpClick}>{isLogin ? 'Sign Up' : 'Login'}</Button> :
-                    <Button h='100%' bg='gray' fontSize='20px' onClick={logoutClick}>Logout</Button>
+                    <Button h='100%' color='white' bg='black' _hover={{bg:'rgb(66, 59, 59)',cursor:'pointer'}} fontSize='20px' onClick={loginSignUpClick}>{isLogin ? 'Sign Up' : 'Login'}</Button> :
+                    <Button h='100%' color='white' bg='black' _hover={{bg:'rgb(66, 59, 59)',cursor:'pointer'}} fontSize='20px' onClick={logoutClick}>Logout</Button>
                 }
 
             </Flex>

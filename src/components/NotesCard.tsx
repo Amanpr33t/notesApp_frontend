@@ -284,8 +284,8 @@ const NotesCard: React.FC = () => {
     }
     return (
         <>
-            {mainSpinner && <Spinner position='fixed' top='120px' left='50%' zIndex='sticky' thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'
-            />}
+            {mainSpinner && <Flex justify='center' ><Spinner position='fixed' top='120px' zIndex='sticky' thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'
+            /></Flex>}
             {alert.isAlert && <AlertBar alertData={alert} />}
             {notesAll !== undefined && <Flex flexDirection='row' position='fixed' top={alert.isAlert ? '120px' : '80px'} ml='20px' zIndex='sticky'>
                 {!enableCheckboxes && <>

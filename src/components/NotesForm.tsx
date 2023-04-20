@@ -202,7 +202,7 @@ const NotesForm: React.FC = () => {
                     {contentError && <Text color='red'>Enter content</Text>}
                     <Flex flexDirection='row' mt='20px' align='center' justify='flex-start'>
                         <Tooltip label='Add image' fontSize='md'>
-                            <input type="file" onChange={imageChangeHandler} />
+                            <input type="file" placeholder="image" accept="image/png, image/jpeg" onChange={imageChangeHandler} />
                         </Tooltip>
                         <img style={{ width: '100px' }} src={isEdit ? imageSRC : file} alt="" />
 
