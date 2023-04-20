@@ -174,7 +174,15 @@ const LoginSignup: React.FC = () => {
             }
         }
     }
-
+    if (alert) {
+        setTimeout(() => {
+            setAlert({
+                isAlert: false,
+                title: '',
+                description: ''
+            })
+        }, 10000)
+    }
 
     return (
         <>
